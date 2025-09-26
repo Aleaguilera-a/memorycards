@@ -8,13 +8,22 @@
       font-family: sans-serif;
       background: #f0f0f0;
       text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    .instructions {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 30px;
     }
     .game-board {
       display: grid;
       grid-template-columns: repeat(4, 150px);
       gap: 15px;
       justify-content: center;
-      margin-top: 50px;
+      margin-bottom: 30px;
     }
     .card {
       width: 150px;
@@ -49,22 +58,22 @@
     .card.matched .cover {
       display: none;
     }
+    .success-message {
+      font-size: 1.2rem;
+      color: #4caf50;
+      font-weight: bold;
+      display: none;
+    }
   </style>
 </head>
 <body>
   <h1>🧠 Memory Match</h1>
+  <div class="instructions">Haz clic en dos cartas para descubrir las imágenes. Encuentra todas las parejas para ganar.</div>
   <div class="game-board" id="board"></div>
+  <div class="success-message" id="success">🎉 ¡Felicitaciones! Has encontrado todas las parejas.</div>
 
   <script>
-    const imagePaths = [
-      'https://i.postimg.cc/Bn2T6JMP/IMG-20240205-085154149-HDR-AE.jpg',
-      'https://i.postimg.cc/jqWpBgbF/IMG-20240501-210409342-AE.jpg',
-      'https://i.postimg.cc/Bt9czQ04/IMG-20240728-140814070-HDR-AE.jpg',
-      'https://i.postimg.cc/x8b3gNB6/IMG-20241031-210535338.jpg',
-      'https://i.postimg.cc/pTSBDJc9/IMG-20250209-183141812.jpg',
-      'https://i.postimg.cc/ZY1Gm8YK/IMG-20250223-094104898.jpg',
-      'https://i.postimg.cc/kXKkg2DN/IMG-20250308-173619704.jpg',
-      'https://i.postimg.cc/g0k5s4s4/IMG-20250819-195608268-AE.jpg',
+    const originalImages = [
       'https://i.postimg.cc/Bn2T6JMP/IMG-20240205-085154149-HDR-AE.jpg',
       'https://i.postimg.cc/jqWpBgbF/IMG-20240501-210409342-AE.jpg',
       'https://i.postimg.cc/Bt9czQ04/IMG-20240728-140814070-HDR-AE.jpg',
@@ -75,12 +84,13 @@
       'https://i.postimg.cc/g0k5s4s4/IMG-20250819-195608268-AE.jpg'
     ];
 
-    const shuffled = imagePaths.sort(() => 0.5 - Math.random());
+    const imagePaths = [...originalImages, ...originalImages].sort(() => 0.5 - Math.random());
     const board = document.getElementById('board');
+    const successMessage = document.getElementById('success');
     let flippedCards = [];
     let matchedCount = 0;
 
-    shuffled.forEach((imgSrc, index) => {
+    imagePaths.forEach((imgSrc, index) => {
       const card = document.createElement('div');
       card.classList.add('card');
       card.dataset.image = imgSrc;
@@ -110,7 +120,9 @@
           b.classList.add('matched');
           matchedCount += 2;
           if (matchedCount === imagePaths.length) {
-            setTimeout(() => alert('¡Ganaste!'), 300);
+            setTimeout(() => {
+              successMessage.style.display = 'block';
+            }, 300);
           }
         } else {
           setTimeout(() => {
