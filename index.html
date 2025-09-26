@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Memory Match</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f0f0f0;
+      text-align: center;
+    }
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(4, 100px);
+      gap: 10px;
+      justify-content: center;
+      margin-top: 50px;
+    }
+    .card {
+      width: 100px;
+      height: 100px;
+      background: #333;
+      color: transparent;
+      font-size: 2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    .card.flipped {
+      background: #fff;
+      color: #000;
+    }
+    .card.matched {
+      background: #4caf50;
+      color: #fff;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧠 Memory Match</h1>
+  <div class="game-board" id="board"></div>
+
+  <script>
+    const symbols = ['🍎','🍌','🍇','🍓','🍎','🍌','🍇','🍓'];
+    let shuffled = symbols.sort(() => 0.5 - Math.random());
+    const board = document.getElementById('board');
+    let flippedCards = [];
+    let matchedCount = 0;
+
+    shuffled.forEach((symbol, index) => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.dataset.symbol = symbol;
+      card.dataset.index = index;
+      card.innerText = symbol;
+      card.addEventListener('click', () => flipCard(card));
+      board.appendChild(card);
+    });
+
+    function flipCard(card) {
+      if (card.classList.contains('flipped') || card.classList.contains('matched') || flippedCards.length === 2) return;
+      card.classList.add('flipped');
+      flippedCards.push(card);
+
+      if (flippedCards.length === 2) {
+        const [a, b] = flippedCards;
+        if (a.dataset.symbol === b.dataset.symbol) {
+          a.classList.add('matched');
+          b.classList.add('matched');
+          matchedCount += 2;
+          if (matchedCount === symbols.length) alert('¡Ganaste!');
+        } else {
+          setTimeout(() => {
+            a.classList.remove('flipped');
+            b.classList.remove('flipped');
+          }, 1000);
+        }
+        flippedCards = [];
+      }
+    }
+  </script>
+</body>
+</html>
