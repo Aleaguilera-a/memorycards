@@ -57,14 +57,22 @@
 
   <script>
     const imagePaths = [
-  'https://i.postimg.cc/Bn2T6JMP/IMG-20240205-085154149-HDR-AE.jpg',
-  'https://i.postimg.cc/jqWpBgbF/IMG-20240501-210409342-AE.jpg',
-  'https://i.postimg.cc/Bt9czQ04/IMG-20240728-140814070-HDR-AE.jpg',
-  'https://i.postimg.cc/x8b3gNB6/IMG-20241031-210535338.jpg',
-  'https://i.postimg.cc/pTSBDJc9/IMG-20250209-183141812.jpg',
-  'https://i.postimg.cc/ZY1Gm8YK/IMG-20250223-094104898.jpg',
-  'https://i.postimg.cc/kXKkg2DN/IMG-20250308-173619704.jpg',
-  'https://i.postimg.cc/g0k5s4s4/IMG-20250819-195608268-AE.jpg'
+      'https://i.postimg.cc/Bn2T6JMP/IMG-20240205-085154149-HDR-AE.jpg',
+      'https://i.postimg.cc/jqWpBgbF/IMG-20240501-210409342-AE.jpg',
+      'https://i.postimg.cc/Bt9czQ04/IMG-20240728-140814070-HDR-AE.jpg',
+      'https://i.postimg.cc/x8b3gNB6/IMG-20241031-210535338.jpg',
+      'https://i.postimg.cc/pTSBDJc9/IMG-20250209-183141812.jpg',
+      'https://i.postimg.cc/ZY1Gm8YK/IMG-20250223-094104898.jpg',
+      'https://i.postimg.cc/kXKkg2DN/IMG-20250308-173619704.jpg',
+      'https://i.postimg.cc/g0k5s4s4/IMG-20250819-195608268-AE.jpg',
+      'https://i.postimg.cc/Bn2T6JMP/IMG-20240205-085154149-HDR-AE.jpg',
+      'https://i.postimg.cc/jqWpBgbF/IMG-20240501-210409342-AE.jpg',
+      'https://i.postimg.cc/Bt9czQ04/IMG-20240728-140814070-HDR-AE.jpg',
+      'https://i.postimg.cc/x8b3gNB6/IMG-20241031-210535338.jpg',
+      'https://i.postimg.cc/pTSBDJc9/IMG-20250209-183141812.jpg',
+      'https://i.postimg.cc/ZY1Gm8YK/IMG-20250223-094104898.jpg',
+      'https://i.postimg.cc/kXKkg2DN/IMG-20250308-173619704.jpg',
+      'https://i.postimg.cc/g0k5s4s4/IMG-20250819-195608268-AE.jpg'
     ];
 
     const shuffled = imagePaths.sort(() => 0.5 - Math.random());
@@ -101,7 +109,9 @@
           a.classList.add('matched');
           b.classList.add('matched');
           matchedCount += 2;
-          if (matchedCount === imagePaths.length) alert('¡Ganaste!');
+          if (matchedCount === imagePaths.length) {
+            setTimeout(() => alert('¡Ganaste!'), 300);
+          }
         } else {
           setTimeout(() => {
             a.classList.remove('flipped');
